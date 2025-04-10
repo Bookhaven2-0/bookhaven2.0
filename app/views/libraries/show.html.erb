@@ -1,0 +1,14 @@
+<% content_for :title, "Showing library" %>
+
+<div class="md:w-2/3 w-full">
+
+  <h1 class="font-bold text-4xl">Showing library</h1>
+
+  <%= render @library %>
+
+  <%= link_to "Edit this library", edit_library_path(@library), class: "mt-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <%= link_to "Back to libraries", libraries_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
+  <div class="inline-block ml-2">
+    <%= button_to "Destroy this library", @library, method: :delete, class: "mt-2 rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium" %>
+  </div>
+</div>

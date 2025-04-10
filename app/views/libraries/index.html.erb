@@ -1,0 +1,19 @@
+<% content_for :title, "Libraries" %>
+
+
+
+  <div class="flex justify-between items-center mt-4">
+    <h1 class="font-bold text-4xl">Libraries</h1>
+    <%= link_to "New library", new_library_path, class: "rounded-md px-3.5 py-2.5 bg-blue-600 hover:bg-blue-500 text-white block font-medium" %>
+  </div>
+
+  <div id="libraries" class="flex flex-wrap gap-4">
+    <% if @libraries.any? %>
+      <% @libraries.each do |library| %>
+        <%= render library %>
+      <% end %>
+    <% else %>
+      <p class="text-center my-10">No libraries found.</p>
+    <% end %>
+  </div>
+
