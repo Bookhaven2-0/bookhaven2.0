@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :books
+  resources :books, only: [:index, :show]
   resources :libraries
+  resources :library_books, only: [:create, :destroy]
   devise_for :users
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
   root "home#index"

@@ -1,0 +1,5 @@
+class AddConditionToLibraryBooks < ActiveRecord::Migration[8.0]
+  def change
+    add_column :library_books, :condition, :integer, default: 0
+  end
+end
