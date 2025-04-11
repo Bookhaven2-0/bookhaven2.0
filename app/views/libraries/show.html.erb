@@ -4,49 +4,13 @@
     <h1 class="text-3xl font-semibold text-gray-800"><%= @library.name %></h1>
     <p class="text-gray-600"><%= @library.full_address %></p>
   </div>
-
-  <div class="bg-white shadow-md rounded-2xl p-6 mb-10">
-  <h2 class="text-xl font-medium text-gray-700 mb-4">Add a Book</h2>
-  <p class="text-sm text-gray-500 mb-6">
-    Please provide either an <strong class="text-gray-700">ISBN number</strong> <em>or</em> a <strong class="text-gray-700">Title and Author</strong>.
-  </p>
-
-  <%= form_with url: library_books_path(@library), local: true do |f| %>
-    <!-- ISBN Section -->
-    <div class="mb-6">
-      <%= f.label :isbn, "ISBN Number", class: "block text-sm font-medium text-gray-700" %>
-      <%= f.text_field :isbn, class: "mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
-    </div>
-
-    <!-- Divider -->
-    <div class="flex items-center my-6">
-      <div class="flex-grow border-t border-gray-300"></div>
-      <span class="mx-4 text-gray-500 text-sm">or</span>
-      <div class="flex-grow border-t border-gray-300"></div>
-    </div>
-
-    <!-- Title and Author Section -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <div>
-        <%= f.label :title, "Title", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.text_field :title, class: "mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
-      </div>
-
-      <div>
-        <%= f.label :author, "Author", class: "block text-sm font-medium text-gray-700" %>
-        <%= f.text_field :author, class: "mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
-      </div>
-    </div>
-
-    <div class="mt-6">
-      <%= f.submit "Add Book", class: "bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-xl shadow" %>
-    </div>
+  <%= turbo_frame_tag 'new_library_book' do%>
+    <%= link_to "Add a Book", new_library_book_path(@library), class: "bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-xl shadow" %>
   <% end %>
-</div>
 
   <!-- Books List -->
   <div>
-  <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Books in this Library</h2>
+  <h2 class="text-2xl font-semibold text-indigo-700 my-4">Books in this Library</h2>
 
   <% if @library.books.any? %>
     <ul class="space-y-4">
