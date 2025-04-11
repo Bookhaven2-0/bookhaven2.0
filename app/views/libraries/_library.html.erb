@@ -1,17 +1,17 @@
-<div class="flex flex-col mt-4 bg-white shadow-sm border border-slate-200 rounded-lg w-80 hover:bg-gray-100 hover:shadow-lg">
-  <div id="<%= dom_id library %>">
-    <%= link_to(library) do %>
-      <h5 class="text-slate-800 text-xl font-bold text-center">
+<div class="w-80 bg-indigo-50 border border-indigo-200 rounded-2xl hover:shadow-lg transition overflow-hidden">
+  <%= link_to library, class: "block p-6 h-full hover:bg-indigo-100 transition" do %>
+    <div id="<%= dom_id library %>">
+      <h5 class="text-indigo-800 text-xl font-bold text-center mb-2">
         <%= "#{library.name} (##{library.charter_number})" %>
       </h5>
-      <div class="">
-        <h6 class="mb-2 text-slate-800 text-lg font-semibold text-center">
-          <%= library.city_state %>
-        </h6>
-        <ul class="text-slate-600 leading-normal font-light text-center">
-          <li>Number of Books: 10</li>
-        </ul>
-      </div>
-    <% end %>
-  </div>  
+      <h6 class="text-indigo-700 text-md font-semibold text-center mb-1">
+        <%= library.city_state %>
+      </h6>
+      <ul class="text-indigo-600 text-sm font-medium text-center">
+        <li class="bg-white px-3 py-1 rounded-full inline-block shadow-sm">
+          📚 <%= library.books.count %> Books
+        </li>
+      </ul>
+    </div>
+  <% end %>
 </div>

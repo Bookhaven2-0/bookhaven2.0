@@ -1,14 +1,77 @@
-<% content_for :title, "Showing library" %>
-
-<div class="md:w-2/3 w-full">
-
-  <h1 class="font-bold text-4xl">Showing library</h1>
-
-  <%= render @library %>
-
-  <%= link_to "Edit this library", edit_library_path(@library), class: "mt-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <%= link_to "Back to libraries", libraries_path, class: "ml-2 rounded-md px-3.5 py-2.5 bg-gray-100 hover:bg-gray-50 inline-block font-medium" %>
-  <div class="inline-block ml-2">
-    <%= button_to "Destroy this library", @library, method: :delete, class: "mt-2 rounded-md px-3.5 py-2.5 text-white bg-red-600 hover:bg-red-500 font-medium" %>
+<div class="max-w-4xl mx-auto p-6">
+  <!-- Library Name & Address -->
+  <div class="mb-8">
+    <h1 class="text-3xl font-semibold text-gray-800"><%= @library.name %></h1>
+    <p class="text-gray-600"><%= @library.full_address %></p>
   </div>
+
+  <div class="bg-white shadow-md rounded-2xl p-6 mb-10">
+  <h2 class="text-xl font-medium text-gray-700 mb-4">Add a Book</h2>
+  <p class="text-sm text-gray-500 mb-6">
+    Please provide either an <strong class="text-gray-700">ISBN number</strong> <em>or</em> a <strong class="text-gray-700">Title and Author</strong>.
+  </p>
+
+  <%= form_with url: library_books_path(@library), local: true do |f| %>
+    <!-- ISBN Section -->
+    <div class="mb-6">
+      <%= f.label :isbn, "ISBN Number", class: "block text-sm font-medium text-gray-700" %>
+      <%= f.text_field :isbn, class: "mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+    </div>
+
+    <!-- Divider -->
+    <div class="flex items-center my-6">
+      <div class="flex-grow border-t border-gray-300"></div>
+      <span class="mx-4 text-gray-500 text-sm">or</span>
+      <div class="flex-grow border-t border-gray-300"></div>
+    </div>
+
+    <!-- Title and Author Section -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <%= f.label :title, "Title", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.text_field :title, class: "mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+
+      <div>
+        <%= f.label :author, "Author", class: "block text-sm font-medium text-gray-700" %>
+        <%= f.text_field :author, class: "mt-1 block w-full rounded-xl border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500" %>
+      </div>
+    </div>
+
+    <div class="mt-6">
+      <%= f.submit "Add Book", class: "bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 px-4 rounded-xl shadow" %>
+    </div>
+  <% end %>
+</div>
+
+  <!-- Books List -->
+  <div>
+  <h2 class="text-2xl font-semibold text-indigo-700 mb-4">Books in this Library</h2>
+
+  <% if @library.books.any? %>
+    <ul class="space-y-4">
+      <% @library.books.each do |book| %>
+        <li class="bg-white border border-indigo-200 rounded-xl p-4 shadow-sm flex items-start space-x-4 hover:shadow-md transition">
+          <% if book.sm_thumbnail_img.present? %>
+            <img src="<%= book.sm_thumbnail_img %>" alt="<%= book.title %> thumbnail"
+                 class="w-20 h-28 object-cover rounded-md border border-indigo-300 shadow-sm">
+          <% else %>
+            <div class="w-20 h-28 bg-indigo-100 flex items-center justify-center rounded-md text-indigo-400 text-xs border border-indigo-300">
+              No Image
+            </div>
+          <% end %>
+
+          <div>
+            <p class="text-lg font-bold text-indigo-800"><%= book.title %></p>
+            <p class="text-sm text-indigo-700">by <%= book.author %></p>
+            <% if book.isbn_13.present? %>
+              <p class="text-xs text-indigo-500">ISBN-13: <%= book.isbn_13 %></p>
+            <% end %>
+          </div>
+        </li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p class="text-indigo-500 italic">No books in this library yet.</p>
+  <% end %>
 </div>

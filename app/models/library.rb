@@ -12,4 +12,8 @@ class Library < ApplicationRecord
   def city_state
     "#{city}, #{state}"
   end
+
+  def full_address 
+    "#{address}, #{city}, #{state} #{zip_code}"
+  end
 end
