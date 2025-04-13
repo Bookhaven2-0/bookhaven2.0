@@ -15,23 +15,32 @@
   <% if @library.books.any? %>
     <ul class="space-y-4">
       <% @library.books.each do |book| %>
-        <li class="bg-white border border-indigo-200 rounded-xl p-4 shadow-sm flex items-start space-x-4 hover:shadow-md transition">
-          <% if book.sm_thumbnail_img.present? %>
-            <img src="<%= book.sm_thumbnail_img %>" alt="<%= book.title %> thumbnail"
-                 class="w-20 h-28 object-cover rounded-md border border-indigo-300 shadow-sm">
-          <% else %>
-            <div class="w-20 h-28 bg-indigo-100 flex items-center justify-center rounded-md text-indigo-400 text-xs border border-indigo-300">
-              No Image
-            </div>
-          <% end %>
-
-          <div>
-            <p class="text-lg font-bold text-indigo-800"><%= book.title %></p>
-            <p class="text-sm text-indigo-700">by <%= book.author %></p>
-            <% if book.isbn_13.present? %>
-              <p class="text-xs text-indigo-500">ISBN-13: <%= book.isbn_13 %></p>
+        <li class="bg-white border border-indigo-200 rounded-xl p-4 shadow-sm flex items-start justify-between hover:shadow-md transition">
+          
+          <!-- Image + Book Info -->
+          <div class="flex space-x-4">
+            <% if book.sm_thumbnail_img.present? %>
+              <img src="<%= book.sm_thumbnail_img %>" alt="<%= book.title %> thumbnail"
+                  class="w-20 h-28 object-cover rounded-md border border-indigo-300 shadow-sm">
+            <% else %>
+              <div class="w-20 h-28 bg-indigo-100 flex items-center justify-center rounded-md text-indigo-400 text-xs border border-indigo-300">
+                No Image
+              </div>
             <% end %>
+
+            <div class="flex flex-col">
+              <p class="text-lg font-bold text-indigo-800"><%= book.title %></p>
+              <p class="text-sm text-indigo-700">by <%= book.author %></p>
+              <p class="text-xs text-indigo-500">ISBN-13: <%= book.isbn_13 || '-' %></p>
+              <p class="text-xs text-indigo-500">ISBN-10: <%= book.isbn_10 || '-' %></p>
+            </div>
           </div>
+
+          <!-- Remove Button -->
+          <div class="ml-6">
+            <%= button_to "Remove Book", library_book_path(@library, book), method: :delete, class: "text-sm text-red-600 hover:text-red-800" %>
+          </div>
+          
         </li>
       <% end %>
     </ul>
