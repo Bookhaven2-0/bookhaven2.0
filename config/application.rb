@@ -42,10 +42,10 @@ module Bookhaven20
     config.action_mailer.default_url_options = { host: 'localhost', port: 3001 }
     config.action_mailer.delivery_method = :smtp
     config.action_mailer.smtp_settings = {
-      address: Rails.application.credentials.mail.smtp_address,
-      port: Rails.application.credentials.mail.port,
-      user_name: Rails.application.credentials.mail.user_name,
-      password: Rails.application.credentials.mail.password,
+      address: Rails.application.credentials.mail&.dig(:smtp_address),
+      port: Rails.application.credentials.mail&.dig(:port),
+      user_name: Rails.application.credentials.mail&.dig(:user_name),
+      password: Rails.application.credentials.mail&.dig(:password),
       authentication: 'plain',
       enable_starttls_auto: true
     }
