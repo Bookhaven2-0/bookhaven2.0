@@ -7,8 +7,7 @@ class LibrariesController < ApplicationController
   end
 
   # GET /libraries/1 or /libraries/1.json
-  def show
-  end
+  def show; end
 
   # GET /libraries/new
   def new
@@ -16,8 +15,7 @@ class LibrariesController < ApplicationController
   end
 
   # GET /libraries/1/edit
-  def edit
-  end
+  def edit; end
 
   # POST /libraries or /libraries.json
   def create
@@ -65,6 +63,6 @@ class LibrariesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def library_params
-      params.expect(library: [ :name, :address, :city, :state, :zip_code, :charter_number ])
+      params.require(:library).permit(:name, :address, :city, :state, :zip_code, :charter_number)
     end
 end
